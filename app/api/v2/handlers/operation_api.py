@@ -11,6 +11,15 @@ from app.api.v2.schemas.link_result_schema import LinkResultSchema
 from app.objects.c_operation import Operation, OperationSchema, OperationSchemaAlt, OperationOutputRequestSchema
 from app.objects.secondclass.c_link import LinkSchema
 
+# caldera/app/api/v2/handlers/operation_api.py
+async def get_operation(self, request):
+    tenant = request['tenant']  # From middleware
+    op_id = request.match_info.get('op_id')
+    
+    # Add tenant filter to queries
+    operation = await self._data_svc.locate('operations', match={'id': op_id, 'tenant': tenant})
+    if not operation:
+        raise ForbiddenError("Operation not found")
 
 class OperationApi(BaseObjectApi):
     def __init__(self, services):
