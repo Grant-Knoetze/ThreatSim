@@ -60,3 +60,11 @@ users:
   red:
     admin: admin
     red: admin
+# Add tenant isolation
+multi_tenant: true
+tenants:
+  - name: "client_A"
+    api_key: "client_a_secret_key"
+    data_dir: "/tmp/client_a"
+  - name: "client_B"
+    api_key: "client_b_secret_key"
